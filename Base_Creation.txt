@@ -1,0 +1,175 @@
+USE [master];
+
+CREATE DATABASE Perruque;
+GO
+
+USE Perruque;
+GO
+
+/***** Création de la TABLE TablePerruque *****/
+CREATE TABLE [dbo].[TablePerruque](
+	[IdPerruque] [int] IDENTITY(1,1) NOT NULL, 
+	[Code] [varchar](4) NOT NULL
+	
+	
+	/***** Ajout d'une CLÉ PRIMAIRE *****/
+	CONSTRAINT [PK_Perruque] PRIMARY KEY ([IdPeruque]),
+
+	/***** Ajout d'une CLÉ ÉTRANGÈRE *****/
+	CONSTRAINT [FK_Perruque_Description] FOREIGN KEY ([IdDescription]) REFERENCES [dbo].[Description] (IdDescription),
+	CONSTRAINT [FK_Perruque_Fournisseur] FOREIGN KEY ([IdFournisseur]) REFERENCES [dbo].[Fournisseur] (IdFournisseur)
+)
+GO
+
+/***** Création de la TABLE Description *****/
+CREATE TABLE [dbo].[Description](
+	[IdDescription] [int] IDENTITY(1,1) NOT NULL, 
+	[Style] [varchar](4) NOT NULL,
+	[Coupe] [varchar](50) NOT NULL,
+	[Couleur] [varchar](4) NOT NULL,
+	[Longueur] [varchar](4) NOT NULL,
+	[Genre] [varchar](4) NOT NULL,
+	[Prix] [int] NOT NULL,
+	[Qstock] [int] NOT NULL,
+	[Qreserve] [int] NOT NULL
+
+	/***** Ajout d'une CLÉ PRIMAIRE *****/
+	CONSTRAINT [PK_Description] PRIMARY KEY ([IdDescription])
+)
+GO
+
+
+/***** Création de la TABLE Fournisseur *****/
+CREATE TABLE [dbo].[Fournisseur](
+	[IdFournisseur] [int] IDENTITY(1,1) NOT NULL, 	
+	[telephone] [varchar](6) NOT NULL,
+	[IdSegment] [int] NOT NULL,
+	[Nom] [varchar](50) NOT NULL,
+	[Courriel] [varchar](50) NOT NULL
+	
+	/***** Ajout d'une CLÉ PRIMAIRE *****/
+	CONSTRAINT [PK_Fournisseur] PRIMARY KEY ([IdFournisseur]),
+
+	/***** Ajout d'une CLÉ ÉTRANGÈRE *****/
+	CONSTRAINT [FK_Fournisseur_Segment] FOREIGN KEY ([IdSegment]) REFERENCES [dbo].[Segment] (IdSegment)
+)
+GO
+
+/***** Création de la TABLE Segment *****/
+CREATE TABLE [dbo].[Segment](
+	[IdSegment] [int] IDENTITY(1,1) NOT NULL, 
+	[Nom] [varchar](4) NOT NULL
+	
+	
+	/***** Ajout d'une CLÉ PRIMAIRE *****/
+	CONSTRAINT [PK_Segment] PRIMARY KEY ([IdSegment])
+	
+)
+GO
+
+
+INSERT INTO [dbo].[Segment] VALUES ('Réaliste');
+INSERT INTO [dbo].[Segment] VALUES ('Fantaisie');
+
+
+
+
+INSERT INTO [dbo].[Fournisseur] VALUES ('514-555-0101',1,'Poil et Compagnie Québec','info@poiletcompagnieqc.ca');
+INSERT INTO [dbo].[Fournisseur] VALUES ('514-555-0101',1,'Experts Capillaires Québec','info@expertscapillairesqc.ca');
+INSERT INTO [dbo].[Fournisseur] VALUES ('514-555-0101',2,'Déguisements Pour Tous Québec','info@deguisementspourtousqc.ca');
+
+
+
+
+
+
+INSERT INTO [dbo].[Description] VALUES ('Hollywood','Au carré','Blond',25,'Féminin',425.00,12,5);
+INSERT INTO [dbo].[Description] VALUES ('Hollywood','Au carré','Noir',25,'Féminin',425.00,16,7);
+INSERT INTO [dbo].[Description] VALUES ('Hollywood','Au carré','Blond Platine',25,'Féminin',425.00,8,0);
+INSERT INTO [dbo].[Description] VALUES ('Hollywood','Au carré','Auburn',25,'Féminin',425.00,10,2);
+INSERT INTO [dbo].[Description] VALUES ('Patience','Dreadlocks','Noir',45,'Féminin',550.00,7,0);
+INSERT INTO [dbo].[Description] VALUES ('Patience','Dreadlocks','Blond',45,'Féminin',550.00,10,1);
+INSERT INTO [dbo].[Description] VALUES ('Princesse','Plat','Blond',45,'Féminin',525.00,11,3);
+INSERT INTO [dbo].[Description] VALUES ('Princesse','Plat','Blond',45,'Féminin',575.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Princesse','Plat','Brun',45,'Féminin',525.00,15,4);
+INSERT INTO [dbo].[Description] VALUES ('Princesse','Plat','Brun',55,'Féminin',575.00,6,0);
+INSERT INTO [dbo].[Description] VALUES ('Princesse','Plat','Noir',55,'Féminin',575.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Sympathique','Bouclés','Noir',30,'Féminin',540.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Sympathique','Bouclés','Blond Platine',40,'Féminin',540.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Énergique','Court','Blond',10,'Féminin',350.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Énergique','Court','Auburn',10,'Féminin',350.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Rebelle','Mi-rasé','Noir',45,'Féminin',525.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Rebelle','Mi-rasé','Blond Platine',45,'Féminin',375.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Reine du Disco','Afro','Auburn',7,'Féminin',375.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Bon garçon','Toupet long','Blond',10,'Masculine',350.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Bon garçon','Toupet long','Chatain',10,'Masculine',350.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Sportif','Côtés rasés','Noir',5,'Masculine',325.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Sportif','Côtés rasés','Blond Platine',5,'Masculine',325.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Rock star','Bouclé','Brun',45,'Masculine',550.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Rock star','Bouclé','Chatain',45,'Masculine',550.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Business man','Courts séparé's,'Brun',7,'Masculine',325.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Business man','Courts séparés','Blond',7,'Masculine',325.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Afro','Afro','Noir',7,'Masculine',375.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Anarchie','Échevelé','Blond',10,'Masculine',350.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Pas de stress man','Dreadlocks','Noir',40,'Masculine',545.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Pas de stress man','Dreadlocks','Chatain',40,'Masculine',545.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Chauve','Chauve','Sans couleur',0,'Masculine',50.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Moine','Tonsure','Brun',2,'Non genré',65.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Clown','Clown','Rose',10,'Non genré',85.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Clown','Clown','Bleu',10,'Non genré',85.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Clown','Clown','Arc-en-ciel',10,'Non genré',95.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Mononcle','Calvitie','Noir',5,'Masculine',70.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Mononcle','Calvitie','Blond',5,'Masculine',70.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Punk','Mohawk','Rose',10,'Non genré',95.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Punk','Mohawk','Bleu',10,'Non genré',95.00,10,0);
+INSERT INTO [dbo].[Description] VALUES ('Punk','Mohawk','Arc-en-ciel',10,'Non genré',105.00,10,0);
+
+
+
+INSERT INTO [dbo].[Perruque] VALUES ('00000A-BLO001-0025',1,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000A-NOI001-0025',2,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000A-PLA001-0025',3,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000A-AUB001-0025',4,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000B-NOI001-0045',5,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000B-BLO001-0045',6,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000C-BLO001-0045',7,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000C-BLO001-0055',8,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000C-BRU001-0045',9,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000C-BRU001-0055',10,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000C-NOI001-0055',11,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000D-NOI001-0030',12,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000D-PLA001-0040',13,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000E-BLO001-0010',14,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000E-AUB001-0010',15,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000F-NOI001-0045',16,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000F-PLA001-0015',17,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000G-NOI001-0007',18,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000H-BLO001-0010',19,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000H-CHA001-0010',20,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000I-NOI001-0005',21,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000I-PLA001-0005',22,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000J-BRU001-0045',23,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000J-CHA001-0045',24,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000K-BRU001-0007',25,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000K-BLO001-0007',26,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000L-NOI001-0007',27,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000M-BLO001-0010',28,1);
+INSERT INTO [dbo].[Perruque] VALUES ('00000N-NOI001-0040',29,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000N-CHA001-0040',30,2);
+INSERT INTO [dbo].[Perruque] VALUES ('00000O-SAN001-0000',31,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000P-BRU001-0002',32,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000Q-ROS001-0010',33,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000Q-BLE001-0010',34,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000Q-ARC001-0010',35,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000R-NOI001-0005',36,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000R-BLO001-0005',37,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000S-ROS001-0010',38,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000S-BLE001-0010',39,3);
+INSERT INTO [dbo].[Perruque] VALUES ('00000S-ARC001-0010',40,3);
+
+
+
+
+
+
+INSERT INTO [dbo].[Perruque] VALUES ('code',1,1);
